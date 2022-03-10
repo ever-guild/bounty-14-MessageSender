@@ -15,9 +15,5 @@ contract MS {
 
     function getMSCode() public pure returns(TvmCell){
         return tvm.code();
-    }
-    
-    function getMSData() public view returns(TvmCell){
-        return tvm.getData();
-    }
+    }    
 }
