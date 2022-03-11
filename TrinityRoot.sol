@@ -11,7 +11,8 @@ contract TrinityRoot is MSDeployer {
         address _addr = new MSDeployer{
             value: amount,
             code: _code,
-            bounce: true
+            bounce: true,
+            varInit: {salt: 0}
         }();
         return _addr;
     }

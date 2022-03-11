@@ -5,6 +5,7 @@ import "./MS.sol";
 contract MSDeployer is MS{
 
     address[] public ms;
+    uint256[] public s; //salts
     
     function getShardNumber(uint _addr) private pure returns(uint8){
         return uint8(_addr >> 252);
@@ -22,6 +23,7 @@ contract MSDeployer is MS{
                 pubkey: msg.pubkey()
             }();
             ms.push(_addr);
+            s.push(_salt);
         }       
         MS(ms[0]).setMSaddresses([ms[1],ms[2]]);
         MS(ms[1]).setMSaddresses([ms[2],ms[0]]);
