@@ -10,7 +10,7 @@ contract MSDeployer is MS{
         return uint8(_addr >> 252);
     }
 
-    function deployMS(uint128 amount) public returns(address){
+    function deployMS(uint128 amount) public {
         tvm.accept();
         TvmCell _code = getMSCode();    
         for ((, uint _salt) : getSalts()) {
@@ -23,6 +23,9 @@ contract MSDeployer is MS{
             }();
             ms.push(_addr);
         }       
+        MS(ms[0]).setMSaddresses([ms[1],ms[2]]);
+        MS(ms[1]).setMSaddresses([ms[2],ms[0]]);
+        MS(ms[2]).setMSaddresses([ms[0],ms[1]]);
     }
 
     function getSalts() private pure returns(mapping (uint8=>uint256)){      
