@@ -1,21 +1,35 @@
 pragma ton-solidity 0.58.1;
 
-contract MS {
+import "./logger.sol";
+
+contract MS is Logger{
     uint static salt;
    
     address[] public MSaddresses;
 
-    function mode0() public {}
+    bool public stop = false;
 
-    function mode1() public view {
+    //stop generator
+    //why it does not work?
+    function mode0() public {
+        // tvm.accept();        
+        // stop = true;      
+    }
+  
+     
+    function mode1(uint32 _srcTime, uint8 _srcShardNumber) public {        
         tvm.accept();
-        MS(MSaddresses[0]).mode1();
+        if(stop) return;
+        uint8 _currentContractShardNumber = addToLog(_srcTime, _srcShardNumber);
+        MS(MSaddresses[0]).mode1(now, _currentContractShardNumber);
     }
 
-    function mode2() public view {
+    function mode2(uint32 _srcTime, uint8 _srcShardNumber) public {
         tvm.accept();
-        MS(MSaddresses[0]).mode2();
-        MS(MSaddresses[1]).mode2();
+        if(stop) return;
+        uint8 _currentContractShardNumber = addToLog(_srcTime, _srcShardNumber);
+        MS(MSaddresses[0]).mode2(_srcTime, _currentContractShardNumber);
+        MS(MSaddresses[1]).mode2(_srcTime, _currentContractShardNumber);
     }
 
     function getMSCode() public pure returns(TvmCell){

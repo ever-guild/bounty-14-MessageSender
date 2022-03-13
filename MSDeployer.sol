@@ -1,23 +1,22 @@
 pragma ton-solidity 0.58.1;
+pragma AbiHeader time;
 
+import "./utils.sol";
 import "./MS.sol";
 
-contract MSDeployer is MS{
+contract MSDeployer is Utils{
 
     address[] public ms;
     uint256[] public s; //salts
-    
-    function getShardNumber(uint _addr) private pure returns(uint8){
-        return uint8(_addr >> 252);
-    }
+
+    TvmCell static msCode;//code MS.sol
 
     function deployMS(uint128 amount) public {
-        tvm.accept();
-        TvmCell _code = getMSCode();    
+        tvm.accept();        
         for ((, uint _salt) : getSalts()) {
             address _addr = new MS{
                 value: amount,
-                code: _code,
+                code: msCode,
                 bounce: true,
                 varInit: {salt: _salt},
                 pubkey: msg.pubkey()
@@ -30,8 +29,7 @@ contract MSDeployer is MS{
         MS(ms[2]).setMSaddresses([ms[0],ms[1]]);
     }
 
-    function getSalts() private pure returns(mapping (uint8=>uint256)){      
-        TvmCell _code = getMSCode();
+    function getSalts() private view returns(mapping (uint8=>uint256)){            
         mapping (uint8=>uint256) salts;
         uint8 counter = 0; // counter for salts ( only 3 needed )
         while(counter < 3){
@@ -42,11 +40,12 @@ contract MSDeployer is MS{
                 pubkey: msg.pubkey()
             });
 
-            uint256 _addr = tvm.stateInitHash(tvm.hash(_code), tvm.hash(_data), _code.depth(), _data.depth());
+            uint256 _addr = tvm.stateInitHash(tvm.hash(msCode), tvm.hash(_data), msCode.depth(), _data.depth());
             uint8 shardNumber = getShardNumber(_addr);           
-            if(salts.add(shardNumber, _salt)){
+            salts.add(shardNumber, _salt);
+            // if(salts.add(shardNumber, _salt)){
                 counter++;
-            }
+            // }
         }
 
         return salts;

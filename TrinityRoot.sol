@@ -1,18 +1,18 @@
-//todo Deploy MSDeployer
 pragma ton-solidity 0.58.1;
 
 import './MSDeployer.sol';
 
-contract TrinityRoot is MSDeployer {
- 
-    function deployMSDeployer(uint128 amount) public pure returns(address){
-        tvm.accept();
-        TvmCell _code = getMSDeployerCode();
+contract TrinityRoot {
+    TvmCell static MSDeployerCode;
+    TvmCell static MScode;
+    
+    function deployMSDeployer(uint128 amount) public view returns(address){
+        tvm.accept();        
         address _addr = new MSDeployer{
             value: amount,
-            code: _code,
+            code: MSDeployerCode,
             bounce: true,
-            varInit: {salt: 0}
+            varInit: {msCode: MScode}
         }();
         return _addr;
     }
