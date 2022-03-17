@@ -19,5 +19,11 @@
 
             dbLog.add(tx.timestamp, Log(_srcTime, now, _srcShardNumber, _currentContractShardNumber));
         }
+
+        function deleteLog() public{
+            tvm.accept();
+            mapping (uint64=>Log) clean;
+            dbLog = clean;
+        }
     }
     

@@ -1,5 +1,6 @@
 pragma ton-solidity 0.58.1;
 pragma AbiHeader time;
+pragma AbiHeader pubkey;
 
 import "./utils.sol";
 import "./MS.sol";
