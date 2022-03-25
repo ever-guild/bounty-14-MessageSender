@@ -4,12 +4,17 @@
   "description": "",
   "main": "run.js",
   "scripts": {
-    "test": ""
+    "build": "everdev sol compile -o ./artifacts contracts/MS.sol && everdev sol compile -o ./artifacts contracts/MSDeployer.sol && everdev sol compile -o ./artifacts contracts/TrinityRoot.sol",
+    "wrapjs": "everdev js wrap ./artifacts/MS.abi.json && everdev js wrap ./artifacts/MSDeployer.abi.json && everdev js wrap ./artifacts/TrinityRoot.abi.json",
+    "start": "npm run build && npm run wrapjs && node start_tps.js",
+    "widthraw": "npm run build && npm run wrapjs && node widthraw_balance.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "zx": "^5.2.0"
+    "@eversdk/core": "^1.31.0",
+    "@eversdk/lib-node": "^1.31.0",
+    "@tonclient/appkit": "^0.3.0"
   }
 }
