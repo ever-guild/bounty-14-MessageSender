@@ -48,6 +48,8 @@ contract TrinityRoot {
         root: address(this),
         salt: deployer_counter
       }
+    // When we send a message from shard A to shard B they will not added in next block, it can be B + 1, B + 2, B + 3.
+    // So we used Constants.parallel_request_per_ms_group (parallels request) to compensate this delay and keep TPS.
     }(Constants.parralel_request_per_ms_group);
 
     deployer_counter++;
@@ -59,8 +61,7 @@ contract TrinityRoot {
   function getCostForTps(uint128 timeSeconds, uint32 tps) public view returns (uint128) {
     // 5_000_000 - cost for send one message from ms
     // 3 - ms's in one group
-    // when we send a message from a shard to b shard it can be imported not in the next block
-    uint128 cost_per_tps_per_second = 5_000_000 * Constants.ms_group_members_count;
+    uint128 cost_per_tps_per_second = 5_800_000;
     return cost_per_tps_per_second * tps * timeSeconds + uint128(howManyDeployersNeed(tps)) * (value_for_deployer_gas + value_for_recursive_trinity_call_gas);
   }
 
