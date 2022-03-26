@@ -13,8 +13,8 @@ const {GetTokensFromGiver, GetGiverAddress} = require("./giver.js");
 const KeyPair = require("./GiverV2.keys.json");
 const endpoint = "https://rfld-dapp01.ds1.itgold.io";
 
-const tps = 300;
-const seconds = 120;
+const tps = 200;
+const seconds = 600;
 
 async function main(client) {
   try {
@@ -42,7 +42,7 @@ async function main(client) {
 
     console.log('trinityAddress', trinityAddress);
     response = await trinityRoot.runLocal('getCostForTps', {timeSeconds: seconds, tps: tps}, {});
-    console.log(response.decoded.output.value0);
+    console.log('Cost for tps', (parseInt(response.decoded.output.value0)/1_000_000_000).toFixed(2));
 
     await GetTokensFromGiver(client, trinityAddress, response.decoded.output.value0);
     await trinityRoot.run('launchTps', {timeSeconds: seconds, tps: tps}, {});

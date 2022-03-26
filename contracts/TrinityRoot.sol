@@ -18,14 +18,6 @@ contract TrinityRoot {
 
   uint32 public deployer_counter;
 
-  // How many requests in parallel must MS send to each other;
-  // We used 3 to smooth delays in message delivery speed.
-  // When you send message from A shard to B shard it can delay for 1-3 blocks of B shard. (up to 10 secs).
-
-  uint32[] public tps_history;
-  uint128[] public balance_history;
-  uint128[] public require_history;
-
   uint128 value_for_deployer_gas = 0.15 ever;
   uint128 value_for_recursive_trinity_call_gas = 0.05 ever;
 

@@ -17,7 +17,7 @@ contract MSDeployer is Utils {
 
       for (uint8 i = 0; i < salts.length; i++) {
         address _addr = new MS{
-          value: address(this).balance / 3 - 0.12 ever,
+          value: address(this).balance / 3 - 0.05 ever,
           code: _buildDataCode(salts[i]),
           bounce: true,
           varInit: {}
