@@ -8,14 +8,15 @@ const { TrinityRootContract } = require("./artifacts/TrinityRootContract.js");
 const { MSDeployerContract } = require("./artifacts/MSDeployerContract.js");
 const { MSContract } = require("./artifacts/MSContract.js");
 
-const {GetTokensFromGiver, GetGiverAddress} = require("./giver.js");
+const {GetGiverAddress} = require("./giver.js");
+
+const config = require("./config.json");
 
 const KeyPair = require("./GiverV2.keys.json");
-const endpoint = "https://rfld-dapp01.ds1.itgold.io";
+const endpoint = config.endpoint;
 
 async function main(client) {
   try {
-    let response;
     const giverAddress = await GetGiverAddress(client);
     const trinityRoot = new Account(TrinityRootContract, {
       signer: signerKeys(KeyPair),

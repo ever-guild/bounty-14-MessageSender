@@ -1,0 +1,5 @@
+{
+  "tps": 200,
+  "seconds": 600,
+  "endpoint": "https://net.ton.dev"
+}

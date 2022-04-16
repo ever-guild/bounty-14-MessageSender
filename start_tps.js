@@ -11,10 +11,12 @@ const { MSContract } = require("./artifacts/MSContract.js");
 const {GetTokensFromGiver, GetGiverAddress} = require("./giver.js");
 
 const KeyPair = require("./GiverV2.keys.json");
-const endpoint = "https://rfld-dapp01.ds1.itgold.io";
 
-const tps = 200;
-const seconds = 600;
+const config = require("./config.json");
+
+const endpoint = config.endpoint;
+const tps = config.tps;
+const seconds = config.seconds;
 
 async function main(client) {
   try {
