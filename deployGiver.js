@@ -1,9 +1,13 @@
 const { Account } = require("@tonclient/appkit");
-const { TonClient, signerKeys, abiContract } = require("@eversdk/core");
+const { TonClient, signerKeys } = require("@eversdk/core");
 const { libNode } = require("@eversdk/lib-node");
 TonClient.useBinaryLibrary(libNode);
+const readline = require('readline-sync');
 
-const endpoint = "https://rfld-dapp01.ds1.itgold.io";
+const config = require("./config.json");
+
+const endpoint = config.endpoint;
+
 const giverKeyPair = require('./GiverV2.keys.json');
 
 const DefaultGiverContract = {
@@ -79,7 +83,9 @@ async function main(client) {
       client,
       initData: {}
     });
-    console.log('giver address', await giverContract.getAddress());
+
+    await readline.question(`Transfer tokens to address below and press "Enter": \n ${await giverContract.getAddress()}`);
+    console.log('Ok. I am trying to deploy the giver contract.');
     console.log(await giverContract.deploy({ useGiver: false }));
   } catch (e) {
     console.log(e);
@@ -90,7 +96,7 @@ async function main(client) {
 (async () => {
   const client = new TonClient({
     network: {
-      endpoints: [ endpoint ]
+      endpoints: [endpoint]
     }
   });
   try {
