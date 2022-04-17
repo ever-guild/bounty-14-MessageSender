@@ -1,17 +1,22 @@
 <template>
-	<div id="buttons" class="text-center">
+<div class="text-center">
+	<div>
 		<div>
 			<chart :chart-data="chartData" />
 		</div>
 	</div>
+	<div class="h3 text-info">{{ config.network }}</div>
+</div>
+
 </template>
 <script>
 import chart from "./Chart.vue";
-import { netTransactions } from "../../api/netTransactions";
+import { netTransactions, config } from "../../api/netTransactions";
 export default {
 	data() {
 		return {
 			chartData: null,
+			config
 		};
 	},
 	components: {

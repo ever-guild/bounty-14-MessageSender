@@ -1,5 +1,5 @@
 const { client } = require("./client/webClient");
-
+const config = require("../config");
 //every 5 seconds new block
 function makeQuery(interval) {
     let query = '{';
@@ -42,7 +42,7 @@ const netTransactions = async (interval) => {
         if (labels.length > 50) {
             labels.shift();
         }
-        for (let i = labels.length; i < 10; i++) {
+        for (let i = labels.length; i < 50; i++) {
             labels.push('');
         }
         return {
@@ -64,7 +64,8 @@ const netTransactions = async (interval) => {
 }
 
 module.exports = {
-    netTransactions
+    netTransactions,
+    config
 }
 
 // setInterval(() => {

@@ -1,6 +1,6 @@
 const { TonClient, AggregationFn } = require("@tonclient/core");
 const { libWeb, libWebSetup } = require("@tonclient/lib-web");
-
+const config = require("../../config");
 
 libWebSetup({
     binaryURL: "./tonclient.wasm",
@@ -9,7 +9,7 @@ libWebSetup({
 TonClient.useBinaryLibrary(libWeb);
 const client = new TonClient({
     network: {
-        server_address: "main.ton.dev",
+        server_address: config.network,
     }
 });
 
