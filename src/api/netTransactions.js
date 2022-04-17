@@ -52,9 +52,10 @@ const netTransactions = async (interval) => {
                     label: "Average transactions per second",
                     backgroundColor: "gray",
                     data,
-                    borderColor: "brown",
+                    borderColor: "lightblue",
                     fill: false,
-                    responsive: false
+                    responsive: true,
+                    maintainAspectRatio: false
                 },
             ],
         }

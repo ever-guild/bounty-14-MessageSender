@@ -26,7 +26,7 @@ export default {
 		setInterval(() => {
 			netTransactions(3).then((data) => {
 				this.chartData = data;
-				console.log(data.labels);
+				//console.log(data.labels);
 			});
 		}, 3000);
 	},
