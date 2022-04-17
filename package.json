@@ -1,26 +1,68 @@
 {
-  "name": "message_sender",
-  "version": "0.1.0",
-  "description": "",
-  "main": "start_tps.js",
+  "name": "message-sender",
+  "version": "1.0.0",
+  "private": true,
+  "description": "EVERSCALE NETWORK CHARTS",
   "scripts": {
-    "build": "everdev sol compile -o ./artifacts contracts/MS.sol && everdev sol compile -o ./artifacts contracts/MSDeployer.sol && everdev sol compile -o ./artifacts contracts/TrinityRoot.sol",
-    "giver": "node ./generateKeys && node ./deployGiver",
-    "wrapjs": "everdev js wrap ./artifacts/MS.abi.json && everdev js wrap ./artifacts/MSDeployer.abi.json && everdev js wrap ./artifacts/TrinityRoot.abi.json",
-    "start": "npm run build && npm run wrapjs && node start_tps.js",
-    "widthraw": "npm run build && npm run wrapjs && node widthraw_balance.js"
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
   },
-  "keywords": [
-    "everscale",
-    "blockchain",
-    "ton-solidity"
-  ],
-  "author": "",
-  "license": "MIT",
+  "main": "webpack.config.js",
   "dependencies": {
-    "@eversdk/core": "^1.31.0",
-    "@eversdk/lib-node": "^1.31.0",
+    "@lab-code/moonphase": "^1.0.4",
     "@tonclient/appkit": "^0.3.0",
-    "readline-sync": "^1.4.10"
-  }
+    "@tonclient/core": "^1.28.0",
+    "@tonclient/lib-web": "^1.28.0",
+    "bootstrap": "^5.0.2",
+    "bootstrap-vue": "^2.21.2",
+    "chart.js": "^2.7.2",
+    "comma-number": "^2.1.0",
+    "core-js": "^3.6.5",
+    "fetch": "^1.1.0",
+    "fs": "^0.0.1-security",
+    "http": "0.0.1-security",
+    "jquery": "^3.6.0",
+    "jquery.easing": "^1.4.1",
+    "querystring": "^0.2.1",
+    "util": "^0.12.4",
+    "vue": "^2.6.11",
+    "vue-chartjs": "^3.3.1",
+    "vue-router": "^3.5.3",
+    "vuex": "^3.6.2"
+  },
+  "devDependencies": {
+    "@tonclient/lib-node": "^1.28.0",
+    "@types/jest": "^27.0.2",
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.7.2",
+    "eslint-plugin-jest": "^25.2.2",
+    "eslint-plugin-vue": "^6.2.2",
+    "jest": "^27.3.1",
+    "vue-template-compiler": "^2.6.11"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "_id": "tonspeed@1.0.0",
+  "readme": "ERROR: No README data found!"
 }
