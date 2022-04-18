@@ -20,9 +20,23 @@ var data = [];
 var labels = [];
 var transactionsArray = [];
 
+const getTime = () => {
+        let minutes = new Date(Date.now() - 15 * 1000).getMinutes();
+        if(minutes < 10) {
+            minutes = "0" + minutes;
+        }
+        let seconds = new Date(Date.now() - 15 * 1000).getSeconds();
+        if(seconds < 10) {
+            seconds = "0" + seconds;
+        }
+        let dt = String(minutes) + ":" + String(seconds);
+        return dt;
+}
+
 const netTransactions = async (interval) => {
 
     try {
+        let dt = getTime();
         let response = (await client.net.query({ "query": makeQuery(interval) })).result.data;
         let transactions = response.aggregateTransactions[0];
         transactionsArray.push(Number(transactions));
@@ -32,8 +46,6 @@ const netTransactions = async (interval) => {
         let sum = transactions5.reduce((a, b) => a + b, 0);
         let speed = sum / (interval * 5);
         data.push(Number(speed.toFixed(4)));
-        let dt = String(new Date(Date.now() - 15 * 1000).getMinutes()) + ":" + String(new Date(Date.now() - 15 * 1000).getSeconds());
-
         labels = labels.filter(label => label != '');
         labels.push(dt);
         if (data.length > 50) {
